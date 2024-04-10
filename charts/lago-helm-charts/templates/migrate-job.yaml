@@ -39,6 +39,7 @@ spec:
             - exec
             - rake
             - --trace
+            - --verbose
             - db:migrate:primary
           env:
             - name: RAKEOPT
