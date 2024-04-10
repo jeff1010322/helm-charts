@@ -1,0 +1,177 @@
+version: "1.1.1"
+
+# apiUrl: mydomain.dev
+# frontUrl: mydomain.dev
+
+# Only for Development, Staging or PoC, you should use a managed Redis instance for Production
+redis:
+  enabled: true
+  image:
+    tag: 6.2.14
+  replica:
+    replicaCount: 0
+  auth:
+    enabled: false
+  master:
+    service:
+      ports:
+        redis: 6379
+# Only for Development, Staging or PoC, you should use a managed PostgreSQL instance for Production
+postgresql:
+  enabled: true
+
+global:
+  # Define your Lago Premium License
+  #license:
+  # If you use a managed PG instance
+  # Should respect this format postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME
+  #databaseUrl:
+  # Should respect standard redis URL format redis://..., redis+sentinel://...
+  #redisUrl:
+
+  # If you wish to provide an existing secret with credentials in, then you can do so here.
+  # The following fields are required:
+  #  - databaseUrl: <SEE FORMAT ABOVE>
+  #  - redisUrl:
+  #  - awsS3AccessKeyId:
+  #  - awsS3SecretAccessKey:
+  #  - smtpUsername:
+  #  - smtpPassword:
+  #existingSecret: "lago-credentials"
+
+  # Not required if using existingSecret
+  postgresql:
+    auth:
+      username: lago
+      password: lago
+      database: lago
+    service:
+      ports:
+        postgresql: 5432
+
+  # You can disable segment tracking for Lago's internal purpose
+  segment:
+    enabled: true
+  s3:
+    enabled: false
+    # accessKeyId and secretAccessKey are not required here if using existingSecret
+    # aws:
+    #   accessKeyId:
+    #   secretAccessKey:
+    #   bucket:
+    #   region:
+    #   endpoint:
+  smtp:
+    # username and password are not required here if using existingSecret
+    enabled: false
+    #address:
+    #username:
+    #password:
+    #port:
+    #fromEmail:
+  newRelic:
+    enabled: false
+    #key:
+
+  # You can disable Lago's signup
+  signup:
+    enabled: true
+
+  ingress:
+    enabled: false
+    #frontHostname:
+    #apiHostname:
+    #className:
+
+  networkPolicy:
+    enabled: false
+    egress: []
+    ingress: []
+
+  #serviceAccountName:
+
+  # If kubectlVersion is not supplied it will be inferred using the version of the cluster that Lago is deployed on.
+  #kubectlVersion: 1.29
+
+front:
+  replicas: 1
+  service:
+    port: 80
+  resources:
+    memory: 512
+    cpu: "200m"
+  podAnnotations: {}
+  podLabels: {}
+
+api:
+  replicas: 1
+  service:
+    port: 3000
+  rails:
+    maxThreads: 10
+    webConcurrency: 4
+    env: "production"
+    logStdout: true
+    logLevel: error
+  sidekiqWeb:
+    enabled: true
+  resources:
+    memory: 1024
+    cpu: "1000m"
+  volumes:
+    storage: "10Gi"
+  podAnnotations: {}
+  podLabels: {}
+
+worker:
+  replicas: 1
+  rails:
+    sidekiqConcurrency: 100
+    env: "production"
+    logStdout: true
+    logLevel: error
+  resources:
+    memory: 1024
+    cpu: "1000m"
+  podAnnotations: {}
+  podLabels: {}
+
+eventsWorker:
+  replicas: 1
+  rails:
+    sidekiqConcurrency: 100
+    env: "production"
+    logStdout: true
+    logLevel: error
+  resources:
+    memory: 1024
+    cpu: "1000m"
+  podAnnotations: {}
+  podLabels: {}
+
+clock:
+  replicas: 1
+  rails:
+    env: "production"
+    logStdout: true
+    logLevel: info
+  resources:
+    memory: 256
+    cpu: "100m"
+  podAnnotations: {}
+  podLabels: {}
+
+pdf:
+  replicas: 1
+  service:
+    port: 3001
+  resources:
+    memory: 2048
+    cpu: "1000m"
+  podAnnotations: {}
+  podLabels: {}
+
+job:
+  migrate:
+    podAnnotations: {}
+    podLabels: {}

@@ -1,3 +1,0 @@
-[submodule "charts/lago-helm-charts"]
-	path = charts/lago-helm-charts
-	url = https://github.com/getlago/lago-helm-charts
