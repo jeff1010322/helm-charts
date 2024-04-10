@@ -41,6 +41,8 @@ spec:
             - --trace
             - db:migrate:primary
           env:
+            - name: RAKEOPT
+              value: -vv
             - name: RAILS_ENV
               value: {{ .Values.api.rails.env }}
             - name: DATABASE_URL
