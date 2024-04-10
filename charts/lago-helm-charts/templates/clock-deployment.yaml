@@ -23,16 +23,6 @@ spec:
         {{ $key }}: {{ $value | quote }}
         {{- end }}
     spec:
-      initContainers:
-        {{ if .Values.redis.enabled }}
-        - name: wait-for-redis
-          image: "docker.io/bitnami/kubectl:{{ include "kubectlVersion" . }}"
-          args:
-            - wait
-            - pod/{{ .Release.Name }}-redis-master-0
-            - --for=condition=ready
-            - --timeout=180s
-        {{ end }}
       containers:
         - args:
             - ./scripts/start.clock.sh
