@@ -3,6 +3,15 @@ entries:
   lago:
   - apiVersion: v1
     appVersion: 1.1.1
+    created: "2024-04-10T16:19:28.404051944Z"
+    description: the Lago open source billing app
+    digest: aa323229d90595faf473c8ea5d2bc1ce985590659b2baeaf4be6a44b9f182c11
+    name: lago
+    urls:
+    - https://github.com/jeff1010322/helm-charts/releases/download/lago-1.1.2/lago-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v1
+    appVersion: 1.1.1
     created: "2024-04-10T16:02:34.553792728Z"
     description: the Lago open source billing app
     digest: afad0bbb71597ee5bfd66cf3c05346f20e2f053f8aaefa911e5ddf7acf55f63b
@@ -28,4 +37,4 @@ entries:
     urls:
     - https://github.com/jeff1010322/helm-charts/releases/download/lago-1.0.0/lago-1.0.0.tgz
     version: 1.0.0
-generated: "2024-04-10T16:02:34.553805482Z"
+generated: "2024-04-10T16:19:28.404069548Z"
