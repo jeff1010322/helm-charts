@@ -20,7 +20,7 @@ spec:
         {{ $key }}: {{ $value | quote }}
         {{- end }}
     spec:
-      restartPolicy: Never
+      restartPolicy: OnFailure
       containers:
         - name: lago-migrate
           image: getlago/api:v{{ .Values.version }}
